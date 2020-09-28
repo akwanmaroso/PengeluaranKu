@@ -1,3 +1,6 @@
+## Gambaran
+Project ini adalah API untuk aplikasi PengeluaranKu yang dibuat dengan Go.
+
 ## PengeluaranKu
 
 PengeluaranKu adalah aplikasi web pembukuan pribadi.
@@ -20,4 +23,4 @@ Pembukuan untuk pengeluaran dan pemasukan(jumlah uang).
 
 ## Referensi
 
-[Dompet](https://github.com/nafiesl/dompet)
+- [Dompet](https://github.com/nafiesl/dompet)
