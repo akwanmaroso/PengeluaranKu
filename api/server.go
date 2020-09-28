@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/akwanmaroso/PengeluaranKu/api/router"
 )
 
 func Run() {
@@ -12,5 +14,6 @@ func Run() {
 }
 
 func listen(port int) {
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	r := router.New()
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), r))
 }
