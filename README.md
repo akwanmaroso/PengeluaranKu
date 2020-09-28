@@ -1,5 +1,5 @@
 ## Gambaran
-Project ini adalah API untuk aplikasi PengeluaranKu yang dibuat dengan Go.
+Project ini Menggunakan Go di sisi backend dan ReactJs di sisi frontend, sedengkan databasenya menggunakan mysql.
 
 ## PengeluaranKu
 
