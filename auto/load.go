@@ -7,6 +7,7 @@ import (
 	"github.com/akwanmaroso/PengeluaranKu/api/models"
 )
 
+// Load is migrate data to db
 func Load() {
 	db, err := database.Connect()
 	if err != nil {
@@ -24,4 +25,12 @@ func Load() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	for i, _ := range users {
+		err = db.Debug().Model(&models.User{}).Create(&users[i]).Error
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 }
