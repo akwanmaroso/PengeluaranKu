@@ -6,12 +6,14 @@ import (
 	"net/http"
 
 	"github.com/akwanmaroso/PengeluaranKu/api/router"
+	"github.com/akwanmaroso/PengeluaranKu/auto"
 	"github.com/akwanmaroso/PengeluaranKu/config"
 )
 
 // Run server
 func Run() {
 	config.Load()
+	auto.Load()
 	fmt.Printf("\n\tListening [::]:%d\n", 9000)
 	listen(9000)
 }
