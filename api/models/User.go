@@ -1,6 +1,8 @@
 package models
 
 import (
+	"html"
+	"strings"
 	"time"
 
 	helper "github.com/akwanmaroso/PengeluaranKu/api/helpers"
@@ -24,4 +26,11 @@ func (u *User) BeforeSave() error {
 	}
 	u.Password = string(hashedPassword)
 	return nil
+}
+
+func (u *User) Prepare() {
+	u.ID = 0
+	u.Email = html.EscapeString(strings.TrimSpace(u.Email))
+	u.CreatedAt = time.Now()
+	u.UpdatedAt = time.Now()
 }
