@@ -1,8 +1,6 @@
 package database
 
 import (
-	"fmt"
-
 	"github.com/akwanmaroso/PengeluaranKu/config"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -14,6 +12,5 @@ func Connect() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("success connect")
 	return db, err
 }
