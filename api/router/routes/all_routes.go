@@ -19,4 +19,10 @@ var allRoutes = []Route{
 		Handler:      controllers.CreateUser,
 		AuthRequired: false,
 	},
+	{
+		Uri:          "/login",
+		Method:       http.MethodPost,
+		Handler:      controllers.Login,
+		AuthRequired: false,
+	},
 }
