@@ -27,6 +27,12 @@ var allRoutes = []Route{
 	},
 	{
 		Uri:          "/transactions",
+		Method:       http.MethodGet,
+		Handler:      controllers.GetTransactions,
+		AuthRequired: false,
+	},
+	{
+		Uri:          "/transactions",
 		Method:       http.MethodPost,
 		Handler:      controllers.CreateTransaction,
 		AuthRequired: false,
