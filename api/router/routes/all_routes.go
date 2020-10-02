@@ -25,4 +25,10 @@ var allRoutes = []Route{
 		Handler:      controllers.Login,
 		AuthRequired: false,
 	},
+	{
+		Uri:          "/transactions",
+		Method:       http.MethodPost,
+		Handler:      controllers.CreateTransaction,
+		AuthRequired: false,
+	},
 }
