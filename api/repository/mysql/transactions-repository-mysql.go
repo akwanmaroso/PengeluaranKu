@@ -32,6 +32,12 @@ func (r *repositoryTransactionsMysql) FindAll() ([]models.Transaction, error) {
 					ch <- false
 					return
 				}
+
+				err = r.db.Debug().Model(&models.Transaction{}).Where("id = ?", transactions[i].CategoryID).Find(&transactions[i].Category).Error
+				if err != nil {
+					ch <- false
+					return
+				}
 			}
 		}
 		ch <- true
