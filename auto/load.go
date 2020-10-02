@@ -31,6 +31,12 @@ func Load() {
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		category[i].CreatorID = users[i].ID
+		err = db.Debug().Model(&models.Transaction{}).Create(&category[i]).Error
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 }

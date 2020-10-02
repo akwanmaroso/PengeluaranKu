@@ -9,3 +9,11 @@ var users = []models.User{
 		Password: "123456789",
 	},
 }
+
+var category = []models.Category{
+	{
+		Name:        "Fee",
+		Description: "Tagihan",
+		Color:       "#00aabb",
+	},
+}
