@@ -43,4 +43,10 @@ var allRoutes = []Route{
 		Handler:      controllers.CreateCategory,
 		AuthRequired: false,
 	},
+	{
+		Uri:          "/categories",
+		Method:       http.MethodGet,
+		Handler:      controllers.GetCategories,
+		AuthRequired: false,
+	},
 }

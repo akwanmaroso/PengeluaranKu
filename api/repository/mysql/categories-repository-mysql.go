@@ -30,3 +30,30 @@ func (r *repositoryCategoriesMysql) Save(category models.Category) (models.Categ
 	}
 	return models.Category{}, err
 }
+
+func (r *repositoryCategoriesMysql) FindAll() ([]models.Category, error) {
+	var err error
+	var categories []models.Category
+	done := make(chan bool)
+	go func(ch chan<- bool) {
+		err = r.db.Debug().Model(&models.Category{}).Limit(100).Find(&categories).Error
+		if err != nil {
+			ch <- false
+			return
+		}
+		if len(categories) > 0 {
+			for i, _ := range categories {
+				err = r.db.Debug().Model(&models.User{}).Where("id = ?", categories[i].CreatorID).Find(categories[i].Creator).Error
+				if err != nil {
+					ch <- false
+					return
+				}
+			}
+		}
+		ch <- true
+	}(done)
+	if channels.OK(done) {
+		return categories, nil
+	}
+	return nil, err
+}

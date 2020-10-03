@@ -46,3 +46,22 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 		responses.JSON(w, http.StatusCreated, category)
 	}(repo)
 }
+
+func GetCategories(w http.ResponseWriter, r *http.Request) {
+	db, err := database.Connect()
+	if err != nil {
+		responses.ERROR(w, http.StatusInternalServerError, err)
+		return
+	}
+	defer db.Close()
+
+	repo := mysql.NewRepositoryCategoriesMysql(db)
+	func(categoriesRepository repository.CategoriesRepository) {
+		categories, err := categoriesRepository.FindAll()
+		if err != nil {
+			responses.ERROR(w, http.StatusUnprocessableEntity, err)
+			return
+		}
+		responses.JSON(w, http.StatusOK, categories)
+	}(repo)
+}
