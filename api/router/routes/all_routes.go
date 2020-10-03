@@ -37,4 +37,10 @@ var allRoutes = []Route{
 		Handler:      controllers.CreateTransaction,
 		AuthRequired: false,
 	},
+	{
+		Uri:          "/categories",
+		Method:       http.MethodPost,
+		Handler:      controllers.CreateCategory,
+		AuthRequired: false,
+	},
 }
