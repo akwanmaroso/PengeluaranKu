@@ -22,7 +22,7 @@ func Load() []Route {
 func SetupRoutes(r *mux.Router) *mux.Router {
 	for _, route := range Load() {
 		r.HandleFunc(route.Uri, route.Handler).Methods(route.Method)
-		fmt.Println(route.Uri)
+		fmt.Println(route.Uri, route.Method)
 	}
 	return r
 }

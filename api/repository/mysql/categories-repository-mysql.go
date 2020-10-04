@@ -43,7 +43,7 @@ func (r *repositoryCategoriesMysql) FindAll() ([]models.Category, error) {
 		}
 		if len(categories) > 0 {
 			for i, _ := range categories {
-				err = r.db.Debug().Model(&models.User{}).Where("id = ?", categories[i].CreatorID).Find(categories[i].Creator).Error
+				err = r.db.Debug().Model(&models.User{}).Where("id = ?", categories[i].CreatorID).Find(&categories[i].Creator).Error
 				if err != nil {
 					ch <- false
 					return
