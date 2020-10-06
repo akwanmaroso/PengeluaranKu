@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/akwanmaroso/PengeluaranKu/api/middlewares"
 	"github.com/gorilla/mux"
 )
 
@@ -21,7 +22,10 @@ func Load() []Route {
 
 func SetupRoutes(r *mux.Router) *mux.Router {
 	for _, route := range Load() {
-		r.HandleFunc(route.Uri, route.Handler).Methods(route.Method)
+		r.HandleFunc(route.Uri,
+			middlewares.SetMiddlewareLogger(
+				middlewares.SetMiddlewareJSON(route.Handler)),
+		).Methods(route.Method)
 		fmt.Println(route.Uri, route.Method)
 	}
 	return r
