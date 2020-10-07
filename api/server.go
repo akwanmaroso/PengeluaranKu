@@ -21,6 +21,6 @@ func Run() {
 
 func listen(port int) {
 	r := router.New()
-	handler := cors.Default().Handler(r)
+	handler := cors.AllowAll().Handler(r)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), handler))
 }
