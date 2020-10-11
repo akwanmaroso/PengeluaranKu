@@ -13,7 +13,17 @@ var users = []models.User{
 var category = []models.Category{
 	{
 		Name:        "Fee",
-		Description: "Tagihan",
-		Color:       "#00aabb",
+		Description: "anyting about fee",
+		Color:       "#c92432",
+	},
+	{
+		Name:        "General",
+		Description: "anyting",
+		Color:       "#24c98a",
+	},
+	{
+		Name:        "Study",
+		Description: "eg. Pay spp",
+		Color:       "#b024c9",
 	},
 }
