@@ -8,43 +8,49 @@ import (
 
 var allRoutes = []Route{
 	{
-		Uri:          "/index",
+		URI:          "/index",
 		Method:       http.MethodGet,
 		Handler:      controllers.Index,
 		AuthRequired: false,
 	},
 	{
-		Uri:          "/users",
+		URI:          "/users",
 		Method:       http.MethodPost,
 		Handler:      controllers.CreateUser,
 		AuthRequired: false,
 	},
 	{
-		Uri:          "/login",
+		URI:          "/login",
 		Method:       http.MethodPost,
 		Handler:      controllers.Login,
 		AuthRequired: false,
 	},
 	{
-		Uri:          "/transactions",
+		URI:          "/transactions",
 		Method:       http.MethodGet,
 		Handler:      controllers.GetTransactions,
-		AuthRequired: false,
+		AuthRequired: true,
 	},
 	{
-		Uri:          "/transactions",
+		URI:          "/transactions",
 		Method:       http.MethodPost,
 		Handler:      controllers.CreateTransaction,
+		AuthRequired: true,
+	},
+	{
+		URI:          "/transactions/{id}",
+		Method:       http.MethodDelete,
+		Handler:      controllers.DeleteTransaction,
 		AuthRequired: false,
 	},
 	{
-		Uri:          "/categories",
+		URI:          "/categories",
 		Method:       http.MethodPost,
 		Handler:      controllers.CreateCategory,
 		AuthRequired: false,
 	},
 	{
-		Uri:          "/categories",
+		URI:          "/categories",
 		Method:       http.MethodGet,
 		Handler:      controllers.GetCategories,
 		AuthRequired: false,
