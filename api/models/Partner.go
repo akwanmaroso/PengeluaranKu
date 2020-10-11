@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type Patner struct {
+type Partner struct {
 	ID          uint32    `gorm:"primary_key;auto_increment" json:"id"`
 	Name        string    `gorm:"size:60;not null" json:"name"`
 	Description string    `gorm:"text;not null" json:"description"`
