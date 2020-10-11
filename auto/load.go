@@ -2,6 +2,7 @@ package auto
 
 import (
 	"log"
+	"os"
 
 	"github.com/akwanmaroso/PengeluaranKu/api/database"
 	"github.com/akwanmaroso/PengeluaranKu/api/models"
@@ -14,22 +15,22 @@ func Load() {
 		log.Fatal(err)
 	}
 
+	err = db.Debug().DropTableIfExists(&models.Category{}, &models.User{}, &models.Partner{}, &models.Transaction{}).Error
+	if err != nil {
+		os.Exit(1)
+	}
+
+	err = db.Debug().AutoMigrate(&models.User{}, &models.Category{}, &models.Partner{}, &models.Transaction{}).Error
+	if err != nil {
+		os.Exit(1)
+	}
+
 	defer db.Close()
 
-	err = db.Debug().DropTableIfExists(&models.Category{}, &models.User{}, &models.Patner{}, &models.Transaction{}).Error
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = db.Debug().AutoMigrate(&models.User{}, &models.Category{}, &models.Patner{}, &models.Transaction{}).Error
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for i, _ := range users {
+	for i := range users {
 		err = db.Debug().Model(&models.User{}).Create(&users[i]).Error
 		if err != nil {
-			log.Fatal(err)
+			os.Exit(1)
 		}
 
 		category[i].CreatorID = users[i].ID
@@ -38,5 +39,4 @@ func Load() {
 			log.Fatal(err)
 		}
 	}
-
 }

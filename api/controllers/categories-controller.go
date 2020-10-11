@@ -36,7 +36,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 	repo := mysql.NewRepositoryCategoriesMysql(db)
 	func(categoriesRepository repository.CategoriesRepository) {
-		category, err := categoriesRepository.Save(category)
+		category, err = categoriesRepository.Save(category)
 		if err != nil {
 			responses.ERROR(w, http.StatusUnprocessableEntity, err)
 			return

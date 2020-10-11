@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 
@@ -28,7 +29,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	user.Prepare()
 	token, err := auth.SigIn(user.Email, user.Password)
 	if err != nil {
-		responses.ERROR(w, http.StatusUnauthorized, err)
+		responses.ERROR(w, http.StatusUnauthorized, errors.New("username and password wrong"))
 		return
 	}
 	responses.JSON(w, http.StatusOK, token)

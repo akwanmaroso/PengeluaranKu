@@ -37,7 +37,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	repo := mysql.NewRepositoryUsersMysql(db)
 
 	func(UserRepository repository.UserRepository) {
-		user, err := UserRepository.Save(user)
+		user, err = UserRepository.Save(user)
 		if err != nil {
 			responses.ERROR(w, http.StatusUnprocessableEntity, err)
 			return

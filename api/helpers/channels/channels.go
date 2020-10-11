@@ -1,11 +1,8 @@
 package channels
 
 func OK(done <-chan bool) bool {
-	select {
-	case ok := <-done:
-		if ok {
-			return true
-		}
+	if ok := <-done; !ok {
+		return false
 	}
-	return false
+	return true
 }

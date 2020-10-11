@@ -14,5 +14,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("error connect to db: %s", err)
 	}
 
-	w.Write([]byte("hello"))
+	_, _ = w.Write([]byte("hello"))
 }
