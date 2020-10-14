@@ -69,7 +69,7 @@ const Transactions = () => {
                                 return (
                                     <tr key={tr.id}>
                                         <td>{index + 1}</td>
-                                        <td>{moment(tr.date).fromNow()}</td>
+                                        <td>{moment(tr.date).calendar()}</td>
                                         <td>
                                             {tr.description}{" "}
                                             <span
