@@ -2,6 +2,8 @@ package middlewares
 
 import (
 	"fmt"
+	"github.com/akwanmaroso/PengeluaranKu/api/auth"
+	"github.com/akwanmaroso/PengeluaranKu/api/helpers/responses"
 	"log"
 	"net/http"
 )
@@ -21,13 +23,13 @@ func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func SetMiddlewareCORS(next http.HandlerFunc) http.HandlerFunc {
+func SetMiddlewareAuthentication(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Credentials", "false")
-		w.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Length, Content-Type, X-Requested-With, Accept")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, HEAD")
-
+		err := auth.TokenValid(r)
+		if err != nil {
+			responses.ERROR(w, http.StatusUnauthorized, err)
+			return
+		}
 		next(w, r)
 	}
 }
