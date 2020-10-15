@@ -28,6 +28,11 @@ const Header = () => {
                                 Home
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/category" activeClassName="active  ">
+                                Category
+                            </NavLink>
+                        </li>
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         {

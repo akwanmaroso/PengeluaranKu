@@ -8,6 +8,7 @@ import Transactions from "./Transactions/Transactions";
 import {isAuth} from "../utils/isAuth";
 import Logout from "./auth/Logout";
 import Signup from "./auth/Signup";
+import Category from "./Category/Category";
 
 const Home = () => {
     return (
@@ -21,6 +22,7 @@ const Home = () => {
                 <Route path="/login" component={Login}/>
                 <Route path="/signup" component={Signup}/>
                 <Route path="/logout" component={Logout}/>
+                <Route path="/category" component={Category}/>
                 <Footer/>
             </Router>
         </div>
