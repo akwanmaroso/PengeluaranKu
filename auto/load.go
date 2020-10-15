@@ -25,6 +25,11 @@ func Load() {
 		os.Exit(1)
 	}
 
+	err = db.Model(&models.Transaction{}).AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE").Error
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	defer db.Close()
 
 	for i := range users {
