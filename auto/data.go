@@ -12,18 +12,8 @@ var users = []models.User{
 
 var category = []models.Category{
 	{
-		Name:        "Fee",
-		Description: "anyting about fee",
-		Color:       "#c92432",
-	},
-	{
 		Name:        "General",
-		Description: "anyting",
-		Color:       "#24c98a",
-	},
-	{
-		Name:        "Study",
-		Description: "eg. Pay spp",
-		Color:       "#b024c9",
+		Description: "All about your activity",
+		Color:       "#46e33d",
 	},
 }
