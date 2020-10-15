@@ -63,6 +63,22 @@ const Category = () => {
         }).catch(err => notifError(err.message))
     }
 
+    const handleDelete = async (id) => {
+        if (window.confirm("Are you sure ?")) {
+            let token = localStorage.getItem("token-user");
+            const AuthStr = "Bearer ".concat(token);
+            axios.delete(`http://localhost:9000/categories/${id}`, {
+                headers: {Authorization: AuthStr},
+            }).then(() => {
+                getCategory()
+                notifSuccess("Success delete category");
+            }).catch(error => {
+                    notifError(`Delete failed ${error.message}`);
+                }
+            )
+        }
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -89,36 +105,42 @@ const Category = () => {
                 <div className="col-8">
                     <h5>List Category</h5>
                     <hr/>
-                    <table className="table table-striped">
-                        <thead className="thead-dark">
-                        <tr className="text-center">
-                            <th>Color</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            category.map((c) => {
-                                return (
-                                    <tr key={c.id}>
-                                        <td className="text-center">
-                                            <i style={{color: `${c.color}`}} className="fa fa-circle fa-2x"/>
-                                        </td>
-                                        <td>{c.name}</td>
-                                        <td>{c.description}</td>
-                                        <td className="text-center">
-                                            <button className="btn btn-danger btn-sm">
-                                                <i className="fa fa-remove" />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                        </tbody>
-                    </table>
+                    <div className="table-responsive">
+                        <table className="table table-striped">
+                            <thead className="thead-dark">
+                            <tr className="text-center">
+                                <th>Color</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                category.map((c) => {
+                                    return (
+                                        <tr key={c.id}>
+                                            <td className="text-center">
+                                                <i style={{color: `${c.color}`}} className="fa fa-circle fa-2x"/>
+                                            </td>
+                                            <td>{c.name}</td>
+                                            <td>{c.description}</td>
+                                            <td className="text-center">
+                                                <button
+                                                    className="btn btn-danger btn-sm"
+                                                    onClick={() => handleDelete(c.id)}>
+                                                    <i className="fa fa-remove"/>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                            </tbody>
+                        </table>
+                        <small className="text-danger">*Please note that if you delete a category, all transactions with
+                            this category will be deleted</small>
+                    </div>
                 </div>
             </div>
         </div>
