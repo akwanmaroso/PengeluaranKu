@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/akwanmaroso/PengeluaranKu/api/auth"
 	"io/ioutil"
 	"net/http"
 
@@ -32,6 +34,14 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	uid, err := auth.ExtractTokenID(r)
+	if err != nil {
+		responses.ERROR(w, http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
+		return
+	}
+
+	category.CreatorID = uid
+
 	defer db.Close()
 
 	repo := mysql.NewRepositoryCategoriesMysql(db)
@@ -53,11 +63,18 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusInternalServerError, err)
 		return
 	}
+
+	cid, err := auth.ExtractTokenID(r)
+	if err != nil {
+		responses.ERROR(w, http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
+		return
+	}
+
 	defer db.Close()
 
 	repo := mysql.NewRepositoryCategoriesMysql(db)
 	func(categoriesRepository repository.CategoriesRepository) {
-		categories, err := categoriesRepository.FindAll()
+		categories, err := categoriesRepository.FindAll(uint64(cid))
 		if err != nil {
 			responses.ERROR(w, http.StatusUnprocessableEntity, err)
 			return

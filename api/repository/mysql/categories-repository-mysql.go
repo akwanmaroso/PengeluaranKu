@@ -31,12 +31,12 @@ func (r *repositoryCategoriesMysql) Save(category models.Category) (models.Categ
 	return models.Category{}, err
 }
 
-func (r *repositoryCategoriesMysql) FindAll() ([]models.Category, error) {
+func (r *repositoryCategoriesMysql) FindAll(cid uint64) ([]models.Category, error) {
 	var err error
 	var categories []models.Category
 	done := make(chan bool)
 	go func(ch chan<- bool) {
-		err = r.db.Debug().Model(&models.Category{}).Limit(100).Find(&categories).Error
+		err = r.db.Debug().Model(&models.Category{}).Where("creator_id = ?", cid).Limit(100).Find(&categories).Error
 		if err != nil {
 			ch <- false
 			return
