@@ -1,6 +1,8 @@
 package mysql
 
 import (
+	"errors"
+	"fmt"
 	"github.com/akwanmaroso/PengeluaranKu/api/helpers/channels"
 	"github.com/akwanmaroso/PengeluaranKu/api/models"
 	"github.com/jinzhu/gorm"
@@ -56,4 +58,25 @@ func (r *repositoryCategoriesMysql) FindAll(cid uint64) ([]models.Category, erro
 		return categories, nil
 	}
 	return nil, err
+}
+
+func (r *repositoryCategoriesMysql) Delete(cid uint64) (int64, error) {
+	var rs *gorm.DB
+	done := make(chan bool)
+	go func(ch chan<- bool) {
+		defer close(ch)
+		rs = r.db.Model(&models.Category{}).Where("id = ?", cid).Take(&models.Category{}).Delete(&models.Category{})
+		fmt.Println(rs)
+		ch <- true
+	}(done)
+	if channels.OK(done) {
+		if rs.Error != nil {
+			if gorm.IsRecordNotFoundError(rs.Error) {
+				return 0, errors.New("category not found")
+			}
+			return 0, rs.Error
+		}
+		return rs.RowsAffected, nil
+	}
+	return 0, rs.Error
 }

@@ -5,8 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/akwanmaroso/PengeluaranKu/api/auth"
+	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/akwanmaroso/PengeluaranKu/api/database"
 	"github.com/akwanmaroso/PengeluaranKu/api/helpers/responses"
@@ -80,5 +82,33 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		responses.JSON(w, http.StatusOK, categories)
+	}(repo)
+}
+
+func DeleteCategory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	cid, err := strconv.ParseUint(vars["id"], 10, 64)
+	if err != nil {
+		responses.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
+
+	db, err := database.Connect()
+	if err != nil {
+		responses.ERROR(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	defer db.Close()
+	repo := mysql.NewRepositoryCategoriesMysql(db)
+
+	func(categoriesRepository repository.CategoriesRepository) {
+		_, err := categoriesRepository.Delete(cid)
+		if err != nil {
+			responses.ERROR(w, http.StatusBadRequest, err)
+			return
+		}
+		w.Header().Set("Entity", fmt.Sprintf("%d", cid))
+		responses.JSON(w, http.StatusNoContent, "")
 	}(repo)
 }

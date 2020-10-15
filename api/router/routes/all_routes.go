@@ -41,18 +41,24 @@ var allRoutes = []Route{
 		URI:          "/transactions/{id}",
 		Method:       http.MethodDelete,
 		Handler:      controllers.DeleteTransaction,
-		AuthRequired: false,
+		AuthRequired: true,
 	},
 	{
 		URI:          "/categories",
 		Method:       http.MethodPost,
 		Handler:      controllers.CreateCategory,
-		AuthRequired: false,
+		AuthRequired: true,
 	},
 	{
 		URI:          "/categories",
 		Method:       http.MethodGet,
 		Handler:      controllers.GetCategories,
-		AuthRequired: false,
+		AuthRequired: true,
+	},
+	{
+		URI:          "/categories/{id}",
+		Method:       http.MethodDelete,
+		Handler:      controllers.DeleteCategory,
+		AuthRequired: true,
 	},
 }
